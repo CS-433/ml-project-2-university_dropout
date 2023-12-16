@@ -1,0 +1,6 @@
+{
+    "prompt_techniques": ["few-shot", "cot", "reit", "right", "rawinst", "pos"],
+    "model": "HuggingFaceH4/zephyr-7b-alpha",
+    "embeddings": "BAAI/bge-base-en-v1.5",
+    "persist_dir": "/home/ragteam/experiments/index_storage/5000/"
+}
