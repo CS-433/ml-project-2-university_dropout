@@ -1,6 +1,7 @@
 {
     "prompt_techniques": ["few-shot", "cot", "reit", "right", "rawinst", "pos"],
     "model": "HuggingFaceH4/zephyr-7b-alpha",
-    "embeddings": "BAAI/bge-base-en-v1.5",
-    "persist_dir": "/home/ragteam/experiments/index_storage/5000/"
+    "embeddings": "dangvantuan/sentence-camembert-large",
+    "persist_dir": "/home/ragteam/experiments/index_storage/for_demo/",
+    "generate_kwargs": {"temperature": 0.7, "top_k": 50, "top_p": 0.95}
 }
