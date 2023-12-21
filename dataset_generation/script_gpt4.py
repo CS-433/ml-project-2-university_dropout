@@ -7,6 +7,8 @@ import sys
 from llama_index.llms import OpenAI
 
 path_to_data = sys.argv[1]
+store_path = sys.argv[2]
+
 with open(path_to_data, 'r') as f:
     data = json.load(f)
 
@@ -54,29 +56,28 @@ def generate_qa(transcript):
 result = []
 for i, example in enumerate(data):
     if i % 10 == 4:
-        with open('/home/ragteam/data/gpt4_dataset_new_fixed.json', 'w') as f:
+        with open(store_path, 'w') as f:
             json.dump(result, f, indent=2, ensure_ascii=False)
-    if isinstance(example['data']['transcript'], str):
-        transcript = example['data']['transcript']
-        if len(transcript) < 1000 or len(transcript) > 10000:
-            continue
+    transcript = example['transcript']
+    if len(transcript) < 1000 or len(transcript) > 10000:
+        continue
 
-        media_id = example['media_id']
-        questions, answers = generate_qa(transcript)
-        if questions == -1:
-            continue
+    media_id = example['media_id']
+    questions, answers = generate_qa(transcript)
+    if questions == -1:
+        continue
 
-        for question, answer in zip(questions, answers):
-            result.append({
-                'question': question,
-                'answer': answer,
-                'transcript': transcript,
-                'media_id': media_id
-            })
+    for question, answer in zip(questions, answers):
+        result.append({
+            'question': question,
+            'answer': answer,
+            'transcript': transcript,
+            'media_id': media_id
+        })
 
-        if len(result) >= 100:
-            break
+    if len(result) >= 100:
+        break
     print(len(result))
 
-with open('/home/ragteam/data/gpt4_dataset_new_fixed.json', 'w') as f:
+with open(store_path, 'w') as f:
     json.dump(result, f, indent=2, ensure_ascii=False)

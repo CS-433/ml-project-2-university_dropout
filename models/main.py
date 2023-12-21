@@ -39,7 +39,7 @@ def try_generate(question: Question):
     prompt = question.question
     techniques = question.techniques
     response_info = rag_pipeline(prompt, techniques)
-    
+
     texts = [
         (node.node.text, node.score) for node in response_info.source_nodes
     ]
@@ -56,14 +56,17 @@ def try_generate(question: Question):
 
 @app.post("/")
 def read_root(question: Question):
-    for _ in range(5):
-        response = try_generate(question)
-        if response != False:
-            return response
-    return {
-        'answer': {
-            "answer": "Je n'ai pas réussi à trouver la réponse.",
-            "media_id": ""
-        },
-        'texts': []
-    }
+    with open('logs/api_logs.txt', 'a') as log_file:
+        print(question, file=log_file)
+        for _ in range(5):
+            response = try_generate(question)
+            if response != False:
+                print(response, file=log_file)
+                return response
+        return {
+            'answer': {
+                "answer": "Je n'ai pas réussi à trouver la réponse.",
+                "media_id": ""
+            },
+            'texts': []
+        }

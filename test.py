@@ -2,7 +2,9 @@ import requests
 import json
 
 questions = [
-    "Combien de buts Merci a-t-il marqué dans le MSN Trident ?"
+    "Combien de villas à 1 million d'euros pouvons-nous acheter avec 3000 milliards d'euros?",
+    "Combien de villas à 1 million d'euros pouvons-nous acheter avec 3000 milliards d'euros?",
+    "Combien de villas à 1 million d'euros pouvons-nous acheter avec 3000 milliards d'euros?"
 ]
 
 techniques = ['cot']

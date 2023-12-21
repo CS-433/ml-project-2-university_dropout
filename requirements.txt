@@ -1,0 +1,9 @@
+llama-index
+fastapi
+torch==2.1.1
+transformers
+pydantic
+numpy
+tqdm
+requests
+langdetect

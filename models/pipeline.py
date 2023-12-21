@@ -25,20 +25,18 @@ class RAGPipeline:
         self.load_models()
 
     def load_huggingface_llm(self):
-        quantization_config = BitsAndBytesConfig(
-            load_in_4bit=True,
-            bnb_4bit_compute_dtype=torch.float16,
-            bnb_4bit_quant_type="nf4",
-            bnb_4bit_use_double_quant=False,
-        )
+
+        generate_kwargs=self.config['generate_kwargs']
 
         llm = HuggingFaceLLM(
             model_name=self.config['model'],
             tokenizer_name=self.config['model'],
             context_window=3900,
             max_new_tokens=1024,
-            model_kwargs={"quantization_config": quantization_config},
-            generate_kwargs=self.config['generate_kwargs'],
+            query_wrapper_prompt=PromptTemplate("<|système|>\n</s>\n<|usager|>\n{query_str}</s>\n<|assistant|>\n"),
+    
+            model_kwargs={"torch_dtype": torch.float16},
+            generate_kwargs=generate_kwargs,
             device_map="auto",
         )
         return llm
@@ -54,7 +52,7 @@ class RAGPipeline:
         )
 
         service_context = ServiceContext.from_defaults(llm=llm, embed_model=embed_model)
-        storage_context = StorageContext.from_defaults(persist_dir=self.config['persist_dir']+self.config['embeddings'])
+        storage_context = StorageContext.from_defaults(persist_dir=f"{self.config['persist_dir']}/{self.config['embeddings']}")
         self.vector_index = load_index_from_storage(storage_context=storage_context, service_context=service_context)
         self.query_engine = self.vector_index.as_query_engine(response_mode="compact", text_qa_template=qa_template, similarity_top_k=4)
 
