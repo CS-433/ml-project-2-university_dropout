@@ -1,6 +1,6 @@
 {
     "prompt_techniques": ["few-shot", "cot", "reit", "right", "rawinst", "pos"],
-    "model": "mistralai/Mistral-7B-Instruct-v0.1",
+    "model": "HuggingFaceH4/zephyr-7b-alpha",
     "embeddings": "dangvantuan/sentence-camembert-large",
     "persist_dir": "/home/ragteam/experiments/index_storage/for_demo/",
     "generate_kwargs": {"temperature": 0.1, "top_k": 50, "top_p": 0.95, "do_sample": true}

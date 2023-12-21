@@ -7,3 +7,10 @@ numpy
 tqdm
 requests
 langdetect
+typing
+openai
+uvicorn
+accelerate
+sentence-transformers
+sentencepiece
+protobuf

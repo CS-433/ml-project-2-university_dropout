@@ -51,7 +51,8 @@ First, construct and store embedding index on the dataset.
 
 To launch the pipeline as service running on port 8000:
 
-    bash models/start_app.sh
+    cd models
+    bash start_app.sh
 
 It can be configured via ```models/config.json``` configuration file. Refer to it to get the list of configuration parameters.
 
